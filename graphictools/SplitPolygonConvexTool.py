@@ -1,5 +1,5 @@
 import pygame
-from algorithms.polygononvexsplitter import PolygonConvexSplitter
+from algorithms.polygonconvexsplitter import PolygonConvexSplitter
 
 WHITE = (255, 255, 255)
 
