@@ -90,7 +90,7 @@ class EarClipTriangulation:
         Check whether ear is convex (Angle < 180 degrees)
         :return: bool
         """
-        if self.__signed_triangle_area(v1, v2, v3) > 0:
+        if not self.__is_clockwise((v1, v2, v3)) and self.__signed_triangle_area(v1, v2, v3) > 0:
             return True
         else:
             return False
@@ -186,11 +186,12 @@ class EarClipTriangulation:
         ear_triangles = []
         polygon_vertices = polygon_vertices
 
+        for point in polygon_vertices:
+            polygon.append(Point(point[0], point[1]))
+
         if self.__is_clockwise(polygon):
             polygon.reverse()
 
-        for point in polygon_vertices:
-            polygon.append(Point(point[0], point[1]))
 
         if polygon[0] == polygon[-1]:
             polygon.pop(-1)
