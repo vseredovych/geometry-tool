@@ -153,18 +153,7 @@ class PolygonConvexSplitter:
         o4 = self.__signed_triangle_area(p2, q2, q1) > 0
 
         if o1 != o2 and o3 != o4:
-            return True;
-        else:
-            return False
-
-    def __do_intersect(self, p1, q1, p2, q2):
-        o1 = self.__signed_triangle_area(p1, q1, p2) > 0
-        o2 = self.__signed_triangle_area(p1, q1, q2) > 0
-        o3 = self.__signed_triangle_area(p2, q2, p1) > 0
-        o4 = self.__signed_triangle_area(p2, q2, q1) > 0
-
-        if o1 != o2 and o3 != o4:
-            return True;
+            return True
         else:
             return False
 
@@ -279,11 +268,11 @@ class PolygonConvexSplitter:
         polygon = []
         polygon_vertices = polygon_vertices
 
-        if self.__is_clockwise(polygon):
-            polygon.reverse()
-
         for point in polygon_vertices:
             polygon.append(Point(point[0], point[1]))
+
+        if self.__is_clockwise(polygon):
+            polygon.reverse()
 
         if polygon[0] == polygon[-1]:
             polygon.pop(-1)
