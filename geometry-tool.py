@@ -11,6 +11,8 @@ from pygame.locals import (
     MOUSEBUTTONDOWN
 )
 
+from libraries import pointsposition, triangle
+
 GREEN = (107, 228, 0)
 DARK_GREEN = (0, 40, 0)
 LIGHT_GREEN = (171, 242, 109)
