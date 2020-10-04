@@ -1,6 +1,6 @@
 import numpy as np
-from triangle import Point, triangle_area, signed_triangle_area
-from pointsposition import compute_angle, is_clockwise
+from libraries.triangle import Point, triangle_area, signed_triangle_area
+from libraries.pointsposition import compute_angle, is_clockwise
 
 class PolygonConvexSplitter:
     def __do_intersect(self, p1, q1, p2, q2):

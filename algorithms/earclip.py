@@ -1,6 +1,6 @@
 import numpy as np
-from pointsposition import *
-from triangle import Point, Triangle
+from libraries.pointsposition import *
+from libraries.triangle import Point, Triangle
 
 class EarClipTriangulation:
     """

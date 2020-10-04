@@ -1,5 +1,5 @@
 import numpy as np
-from triangle import triangle_area, signed_triangle_area
+from libraries.triangle import triangle_area, signed_triangle_area
 
 
 def is_point_inside(pt, v1, v2, v3):
