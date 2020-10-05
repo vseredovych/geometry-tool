@@ -32,8 +32,12 @@ class GeometryTool:
         self.__initialize_board()
 
         self.drawing_tool = DrawingTool(self.board_screen, self.panel,
-                                        x=0, y=50, width=self.board_width - 50, length=self.board_length)
-        self.triangulation_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 150, 20))
+                                        x=0, y=50, width=self.board_width - 50,
+                                        length=self.board_length)
+
+        self.triangulation_earclip_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 150, 10), method="earclip")
+        self.triangulation_delaunay_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 150, 25), method="delaunay")
+
         self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
 
         pygame.init()
@@ -59,7 +63,8 @@ class GeometryTool:
 
     def __reset_board(self):
         self.drawing_tool.clear()
-        self.triangulation_tool.clear()
+        self.triangulation_earclip_tool.clear()
+        self.triangulation_delaunay_tool.clear()
         self.split_polygon_tool.clear()
 
     def __clear_screen(self):
@@ -83,14 +88,16 @@ class GeometryTool:
                     self.drawing_tool.event_actions(event)
 
                     if self.drawing_tool.polygon_finished:
-                        self.triangulation_tool.event_actions(event, self.drawing_tool.polygon)
+                        self.triangulation_earclip_tool.event_actions(event, self.drawing_tool.polygon)
+                        self.triangulation_delaunay_tool.event_actions(event, self.drawing_tool.polygon)
                         self.split_polygon_tool.event_actions(event, self.drawing_tool.polygon)
 
             self.__clear_screen()
             self.__draw_buttons()
 
             self.drawing_tool.draw()
-            self.triangulation_tool.draw()
+            self.triangulation_earclip_tool.draw()
+            self.triangulation_delaunay_tool.draw()
             self.split_polygon_tool.draw()
 
             pygame.display.flip()

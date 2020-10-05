@@ -72,3 +72,9 @@ def triangle_area(p1, p2, p3):
     :return: float
     """
     return abs(signed_triangle_area(p1, p2, p3))
+
+def compute_triangles_area(triangles):
+    area = 0
+    for tr in triangles:
+        area += tr.area()
+    return area

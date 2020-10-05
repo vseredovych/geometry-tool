@@ -1,10 +1,10 @@
 import numpy as np
 from scipy.spatial import Delaunay
-from libraries.triangle import Point, Triangle
+from libraries.triangle import Point, Triangle, compute_triangles_area
 
 class DelaunayTriangulation:
     def triangulate(self, polygon_vertices):
-        points = np.array(polygon_vertices)
+        points = np.array(polygon_vertices[:-1])
         triangulation = Delaunay(points)
         triangles = []
         
