@@ -27,6 +27,7 @@ class SplitPolygonConvexTool:
         self.__draw_convex_split()
 
     def clear(self):
+        self.panel.get(self.btn_split_name).disable()
         self.diagonals = []
 
     def __split_button_clicked(self, polygon):
