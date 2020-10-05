@@ -33,6 +33,22 @@ class DrawingTool:
 
             self.__mouse_clicked(event)
 
+    def draw_points(self, points_str):
+        points = self.parse_input(points_str)
+        for point in points:
+            self.polygon.append(point)
+            self.polygon_finished, self.polygon = self.__fix_polygon_end_points()
+
+            if self.polygon_finished:
+                self.panel.get(self.btn_polygon_draw_name).disable()
+
+    def parse_input(self, points_str):
+        points = []
+        for point in points_str:
+            t = point.split()
+            points.append((int(t[0]), int(t[1])))
+        return points
+
     def draw(self):
         self.__draw_polygon()
 
