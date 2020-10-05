@@ -84,10 +84,14 @@ class GeometryTool:
         root.withdraw()
 
         file_path = filedialog.askopenfilename()
-        with open(file_path, 'r') as readfile:
-            lines = readfile.read().splitlines()
+        try:
+            with open(file_path, 'r') as readfile:
+                lines = readfile.read().splitlines()
 
-        self.drawing_tool.draw_points(lines)
+            self.__reset_board()
+            self.drawing_tool.insert_points(lines)
+        except IOError:
+            print("Could not read file:", file_path)
 
     def run(self):
         self.running = True

@@ -33,7 +33,7 @@ class DrawingTool:
 
             self.__mouse_clicked(event)
 
-    def draw_points(self, points_str):
+    def insert_points(self, points_str):
         points = self.parse_input(points_str)
         for point in points:
             self.polygon.append(point)
@@ -44,9 +44,13 @@ class DrawingTool:
 
     def parse_input(self, points_str):
         points = []
-        for point in points_str:
-            t = point.split()
-            points.append((int(t[0]), int(t[1])))
+        try:
+            for point in points_str:
+                t = point.split()
+                points.append((int(t[0]), int(t[1])))
+        except:
+            print("Error. Wrong format")
+            points = []
         return points
 
     def draw(self):
