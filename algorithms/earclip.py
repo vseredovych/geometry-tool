@@ -54,7 +54,6 @@ class EarClipTriangulation:
         polygon = []
         triangles = []
         ear_triangles = []
-        polygon_vertices = polygon_vertices
 
         for point in polygon_vertices:
             polygon.append(Point(point[0], point[1]))

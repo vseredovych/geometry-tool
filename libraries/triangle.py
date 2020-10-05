@@ -9,7 +9,7 @@ class Point:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
-    def get_cords(self):
+    def get_coords(self):
         return self.x, self.y
 
 
