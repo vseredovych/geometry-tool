@@ -13,6 +13,9 @@ from pygame.locals import (
 
 from libraries import pointsposition, triangle
 
+import tkinter as tk
+from tkinter import filedialog
+
 GREEN = (107, 228, 0)
 DARK_GREEN = (0, 40, 0)
 LIGHT_GREEN = (171, 242, 109)
@@ -54,6 +57,9 @@ class GeometryTool:
         self.btn_clear_name = "clear"
         self.panel.add_button(self.btn_clear_name, button_type='stateless')
 
+        self.btn_read_name = "read"
+        self.panel.add_button(self.btn_read_name, button_type='stateless')
+
     def __draw_buttons(self):
         self.panel.draw_panel(self.board_screen)
 
@@ -64,6 +70,28 @@ class GeometryTool:
 
     def __clear_screen(self):
         self.board_screen.fill(BLACK)
+
+    def __read_points(self):
+        """
+        Reads points from file
+        Format:
+        x y
+        x y
+        ...
+        :return:
+        """
+        root = tk.Tk()
+        root.withdraw()
+
+        file_path = filedialog.askopenfilename()
+        try:
+            with open(file_path, 'r') as readfile:
+                lines = readfile.read().splitlines()
+
+            self.__reset_board()
+            self.drawing_tool.insert_points(lines)
+        except IOError:
+            print("Could not read file:", file_path)
 
     def run(self):
         self.running = True
@@ -79,6 +107,9 @@ class GeometryTool:
                 if event.type == MOUSEBUTTONDOWN:
                     if self.panel.get(self.btn_clear_name).clicked(event.pos):
                         self.__reset_board()
+
+                    if self.panel.get(self.btn_read_name).clicked(event.pos):
+                        self.__read_points()
 
                     self.drawing_tool.event_actions(event)
 
