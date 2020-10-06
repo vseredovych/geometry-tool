@@ -1,5 +1,7 @@
 import pygame
 
+from tkinter import filedialog
+
 GREEN = (107, 228, 0)
 WHITE = (255, 255, 255)
 
@@ -19,12 +21,19 @@ class DrawingTool:
         self.polygon = []
         self.polygon_finished = False
 
+        self.btn_write_name = "write"
+        self.panel.add_button(self.btn_write_name, button_type='stateless')
+
         self.btn_polygon_draw_name = "draw"
         self.panel.add_button(self.btn_polygon_draw_name)
 
     def event_actions(self, event):
         mouse_pos = event.pos
-        if self.panel.get(self.btn_polygon_draw_name).clicked(mouse_pos):
+        if self.panel.get(self.btn_write_name).clicked(mouse_pos):
+            if self.polygon_finished:
+                self.write_to_file(self.polygon)
+
+        elif self.panel.get(self.btn_polygon_draw_name).clicked(mouse_pos):
             self.__draw_button_clicked()
 
         elif (self.__is_pos_on_board(event.pos)
@@ -32,6 +41,20 @@ class DrawingTool:
               and not self.polygon_finished):
 
             self.__mouse_clicked(event)
+
+    def write_to_file(self, points):
+        file = ''
+        for point in points:
+            file = file + str(point[0]) + ' ' + str(point[1]) + '\n'
+
+        try:
+            f = filedialog.asksaveasfile(mode='w', defaultextension=".txt")
+            if f is None:
+                return
+            f.write(file)
+            f.close()
+        except:
+            print('Error. Could not save file.')
 
     def insert_points(self, points_str):
         points = self.parse_input(points_str)

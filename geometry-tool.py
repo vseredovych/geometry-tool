@@ -43,6 +43,9 @@ class GeometryTool:
 
         self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
 
+        root = tk.Tk()
+        root.withdraw()
+
         pygame.init()
 
     def __initialize_board(self, board_width=DEFAULT_BOARD_WIDTH,
@@ -85,8 +88,6 @@ class GeometryTool:
         ...
         :return:
         """
-        root = tk.Tk()
-        root.withdraw()
 
         file_path = filedialog.askopenfilename()
         try:
