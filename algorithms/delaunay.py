@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.spatial import Delaunay
-from libraries.triangle import Point, Triangle
+from libraries.triangle import Point, Triangle, compute_triangles_area
 
 class DelaunayTriangulation:
     def triangulate(self, polygon_vertices):
@@ -14,5 +14,4 @@ class DelaunayTriangulation:
                 Point(triangle[1][0], triangle[1][1]),
                 Point(triangle[2][0], triangle[2][1]))
             )
-            
         return triangles

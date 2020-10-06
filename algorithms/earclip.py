@@ -39,12 +39,6 @@ class EarClipTriangulation:
                 ear_triangles.append(triangle)
         return ear_triangles
 
-    def compute_triangles_area(self, triangles):
-        area = 0
-        for tr in triangles:
-            area += tr.area()
-        return area
-
     def triangulate(self, polygon_vertices):
         """
         Perform triangulation of a given polygon by clipping all ears and returns triangles polygon consists of.

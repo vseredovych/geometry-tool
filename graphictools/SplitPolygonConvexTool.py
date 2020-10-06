@@ -2,7 +2,7 @@ import pygame
 from algorithms.polygonconvexsplitter import PolygonConvexSplitter
 
 WHITE = (255, 255, 255)
-
+RED = (200, 0, 0)
 
 class SplitPolygonConvexTool:
     LINE_WIDTH = 1
@@ -40,4 +40,4 @@ class SplitPolygonConvexTool:
             for p1, p2 in self.diagonals:
                 start_point = [p1.x, abs(p1.y)]
                 end_point = [p2.x, abs(p2.y)]
-                pygame.draw.aaline(self.board_screen, WHITE, start_point, end_point, self.LINE_WIDTH)
+                pygame.draw.aaline(self.board_screen, RED, start_point, end_point, self.LINE_WIDTH)
