@@ -39,6 +39,7 @@ class TriangulationTool:
         self.__draw_triangulation()
 
     def clear(self):
+        self.panel.get(self.btn_triangulate_name).disable()
         self.triangulation = []
         self.polygon_area = 0
 
