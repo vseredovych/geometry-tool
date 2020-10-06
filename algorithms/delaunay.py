@@ -4,7 +4,7 @@ from libraries.triangle import Point, Triangle, compute_triangles_area
 
 class DelaunayTriangulation:
     def triangulate(self, polygon_vertices):
-        points = np.array(polygon_vertices[:-1])
+        points = np.array(polygon_vertices)
         triangulation = Delaunay(points)
         triangles = []
         
@@ -14,5 +14,4 @@ class DelaunayTriangulation:
                 Point(triangle[1][0], triangle[1][1]),
                 Point(triangle[2][0], triangle[2][1]))
             )
-            
         return triangles

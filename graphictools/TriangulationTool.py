@@ -53,6 +53,14 @@ class TriangulationTool:
         if self.panel.get(self.btn_triangulate_name).state:
             for tr in self.triangulation:
                 start_point = [tr.p1.x, abs(tr.p1.y)]
+                end_point = [tr.p2.x, abs(tr.p2.y)]
+                pygame.draw.aaline(self.board_screen, GREEN, start_point, end_point, self.LINE_WIDTH)
+
+                start_point = [tr.p1.x, abs(tr.p1.y)]
+                end_point = [tr.p3.x, abs(tr.p3.y)]
+                pygame.draw.aaline(self.board_screen, GREEN, start_point, end_point, self.LINE_WIDTH)
+
+                start_point = [tr.p2.x, abs(tr.p2.y)]
                 end_point = [tr.p3.x, abs(tr.p3.y)]
                 pygame.draw.aaline(self.board_screen, GREEN, start_point, end_point, self.LINE_WIDTH)
 
