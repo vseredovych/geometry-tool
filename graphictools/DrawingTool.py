@@ -22,7 +22,7 @@ class DrawingTool:
         self.polygon_finished = False
 
         self.btn_write_name = "write"
-        self.panel.add_button(self.btn_write_name)
+        self.panel.add_button(self.btn_write_name, button_type='stateless')
 
         self.btn_polygon_draw_name = "draw"
         self.panel.add_button(self.btn_polygon_draw_name)
