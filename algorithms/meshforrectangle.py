@@ -1,4 +1,5 @@
 from libraries.triangle import Triangle, Point
+<<<<<<< HEAD
 import numpy as np
 
 class MeshForRectangle:
@@ -11,6 +12,17 @@ class MeshForRectangle:
         # number of splits by OY
         self.ny = num
 
+=======
+
+class MeshForRectangle:
+    def __init__(self, nx=10, ny=10):
+        # number of splits by OX
+        self.nx = nx
+        # number of splits by OY
+        self.ny = ny
+  
+    def triangulate(self, rectangle_polygon):
+>>>>>>> Add structured mesh
         rectangle_polygon = [Point(x[0], x[1])
                              for x in rectangle_polygon]
         
