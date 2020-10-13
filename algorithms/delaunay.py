@@ -1,16 +1,10 @@
 import numpy as np
-import sys
 
 from scipy.spatial import Delaunay
-from libraries.triangle import Point, Triangle, compute_triangles_area
-
+from libraries.triangle import Point, Triangle
 
 class DelaunayTriangulation:
-    eps = 0.00000001
-    _huge = sys.float_info.max
-    _tiny = sys.float_info.min
-
-    def triangulate(self, polygon_vertices, mesh_points=0):
+    def triangulate(self, polygon_vertices):
         points = np.array(polygon_vertices)
         triangulation = Delaunay(points)
         triangles = []
