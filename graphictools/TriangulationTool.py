@@ -6,8 +6,9 @@ from algorithms.meshforrectangle import MeshForRectangle
 from libraries.triangle import compute_triangles_area
 
 GREEN = (107, 228, 0)
-WHITE = (255, 255, 255)
-
+ORANGE = (255, 165, 0)
+RED = (255, 0, 0)
+BLUE = (0, 120, 255)
 
 class TriangulationTool:
     LINE_WIDTH = 1
@@ -76,6 +77,46 @@ class TriangulationTool:
                 end_point = [tr.p3.x, abs(tr.p3.y)]
                 pygame.draw.aaline(self.board_screen, GREEN, start_point, end_point, self.LINE_WIDTH)
 
+            self.__draw_numeration_vertcies(self.triangulation)
+            self.__draw_numeration_triangles(self.triangulation)
             # area_text = self.font.render(f'Polygon area: {self.polygon_area}', 1, GREEN)
             # self.board_screen.blit(area_text, self.text_position)
 
+    def __draw_numeration_vertcies(self, triangulation):
+
+        points = {}
+
+        count = 1
+
+        for tr in triangulation:
+            if tr.p1 not in points.values():
+                points.update({count: tr.p1})
+                count += 1
+
+            if tr.p2 not in points.values():
+                points.update({count: tr.p2})
+                count += 1
+
+            if tr.p3 not in points.values():
+                points.update({count: tr.p3})
+                count += 1
+
+        for number, point in points.items():
+            number_text = self.font.render(f'{number}', 1, ORANGE)
+            self.board_screen.blit(number_text, [point.x + 5, abs(point.y)])
+
+    def __draw_numeration_triangles(self, triangulation):
+
+        triangles = {}
+        count = 1
+
+        for tr in triangulation:
+            x = (tr.p1.x + tr.p2.x + tr.p3.x) / 3
+            y = (tr.p1.y + tr.p2.y + tr.p3.y) / 3
+            triangles.update({count: [x, y]})
+            count += 1
+
+            for number, coord in triangles.items():
+                number_text = self.font.render(f'{number}', 1, BLUE)
+
+                self.board_screen.blit(number_text, [coord[0], abs(coord[1])])
