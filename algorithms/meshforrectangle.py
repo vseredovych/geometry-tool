@@ -1,13 +1,16 @@
 from libraries.triangle import Triangle, Point
+import numpy as np
 
 class MeshForRectangle:
-    def __init__(self, nx=10, ny=10):
+    def triangulate(self, rectangle_polygon, mesh_num=0):
+        num = int(np.sqrt(int(mesh_num)))
+
         # number of splits by OX
-        self.nx = nx
+        self.nx = num
+
         # number of splits by OY
-        self.ny = ny
-  
-    def triangulate(self, rectangle_polygon):
+        self.ny = num
+
         rectangle_polygon = [Point(x[0], x[1])
                              for x in rectangle_polygon]
         

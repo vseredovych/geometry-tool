@@ -11,8 +11,8 @@ class RandomPointsTriangulation:
     _huge = sys.float_info.max
     _tiny = sys.float_info.min
 
-    def triangulate(self, polygon_vertices, mesh_points=0):
-        polygon_vertices += self.generate_random_points(polygon_vertices, int(mesh_points))
+    def triangulate(self, polygon_vertices, mesh_num=0):
+        polygon_vertices += self.generate_random_points(polygon_vertices, int(mesh_num))
         delaunay = DelaunayTriangulation()
 
         return delaunay.triangulate(polygon_vertices)

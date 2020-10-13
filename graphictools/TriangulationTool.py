@@ -1,7 +1,8 @@
 import pygame
 from algorithms.earclip import EarClipTriangulation
 from algorithms.delaunay import DelaunayTriangulation
-from algorithms.randompointstriangulation import RandomPointsTriangulation
+from algorithms.randommeshgenerator import RandomPointsTriangulation
+from algorithms.meshforrectangle import MeshForRectangle
 from libraries.triangle import compute_triangles_area
 
 GREEN = (107, 228, 0)
@@ -13,8 +14,11 @@ class TriangulationTool:
     TRIANGULATION_METHODS = {
         "delaunay": DelaunayTriangulation,
         "random": RandomPointsTriangulation,
+        "structured": MeshForRectangle,
         "earclip": EarClipTriangulation
     }
+
+    MESHES = ["random", "structured"]
 
     def __init__(self, screen, button_panel, text_position, method="earclip"):
         assert method in self.TRIANGULATION_METHODS.keys()
@@ -49,14 +53,13 @@ class TriangulationTool:
         self.polygon_area = 0
 
     def __triangulate_button_clicked(self, polygon):
-        if len(polygon) > 2 and (self.method == "random" or not self.triangulation):
+        if len(polygon) > 2 and (self.method in self.MESHES or not self.triangulation):
             fixed_polygon = [(x, -y) for x, y in polygon]
-            if self.method == "random":
-                self.triangulation = self.algorithm.triangulate(fixed_polygon, mesh_points=self.mesh_points)
+            if self.method in self.MESHES:
+                if int(self.mesh_points) != 0:
+                    self.triangulation = self.algorithm.triangulate(fixed_polygon, mesh_num=self.mesh_points)
             else:
                 self.triangulation = self.algorithm.triangulate(fixed_polygon)
-
-            self.polygon_area = compute_triangles_area(self.triangulation)
 
     def __draw_triangulation(self):
         if self.panel.get(self.btn_triangulate_name).state:
@@ -73,6 +76,6 @@ class TriangulationTool:
                 end_point = [tr.p3.x, abs(tr.p3.y)]
                 pygame.draw.aaline(self.board_screen, GREEN, start_point, end_point, self.LINE_WIDTH)
 
-            area_text = self.font.render(f'Polygon area: {self.polygon_area}', 1, GREEN)
-            self.board_screen.blit(area_text, self.text_position)
+            # area_text = self.font.render(f'Polygon area: {self.polygon_area}', 1, GREEN)
+            # self.board_screen.blit(area_text, self.text_position)
 
