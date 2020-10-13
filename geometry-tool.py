@@ -40,7 +40,7 @@ class GeometryTool:
                                         length=self.board_length)
 
         self.triangulation_earclip_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 10), method="earclip")
-        self.triangulation_delaunay_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="delaunay")
+        self.triangulation_delaunay_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="random")
 
         self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
 
