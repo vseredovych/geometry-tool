@@ -26,7 +26,7 @@ BLACK = (0, 0, 0)
 
 class GeometryTool:
     DEFAULT_BOARD_WIDTH = 600
-    DEFAULT_BOARD_LENGTH = 800
+    DEFAULT_BOARD_LENGTH = 1000
     DEFAULT_BOARD_COLOR = BLACK
 
     def __init__(self):
@@ -39,10 +39,12 @@ class GeometryTool:
                                         x=0, y=50, width=self.board_width - 50,
                                         length=self.board_length)
 
-        self.triangulation_earclip_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 10), method="earclip")
-        self.triangulation_delaunay_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="random")
+        self.triangulation_earclip_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="earclip")
+        self.triangulation_delaunay_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="delaunay")
+        self.triangulation_random_mesh_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="random")
+        self.triangulation_structured_mesh_tool = TriangulationTool(self.board_screen, self.panel, (self.board_length - 100, 25), method="structured")
 
-        self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
+        # self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
 
         root = tk.Tk()
         root.withdraw()
@@ -60,7 +62,7 @@ class GeometryTool:
         self.font = pygame.font.SysFont('serif', 12)
         self.board_screen = pygame.display.set_mode([self.board_length, self.board_width])
 
-        self.input_box = InputBox(self.board_width, 10, 30, 60, text=0)
+        self.input_box = InputBox(self.board_length - 200, 10, 30, 60, text=0)
 
         self.panel = ButtonsPanel(0, 0, width=50, length=self.board_length)
 
@@ -77,7 +79,9 @@ class GeometryTool:
         self.drawing_tool.clear()
         self.triangulation_earclip_tool.clear()
         self.triangulation_delaunay_tool.clear()
-        self.split_polygon_tool.clear()
+        self.triangulation_random_mesh_tool.clear()
+        self.triangulation_structured_mesh_tool.clear()
+        #self.split_polygon_tool.clear()
 
     def __clear_screen(self):
         self.board_screen.fill(BLACK)
@@ -126,8 +130,10 @@ class GeometryTool:
 
                     if self.drawing_tool.polygon_finished:
                         self.triangulation_earclip_tool.event_actions(event, self.drawing_tool.polygon)
-                        self.triangulation_delaunay_tool.event_actions(event, self.drawing_tool.polygon, mesh_points=self.input_box.text)
-                        self.split_polygon_tool.event_actions(event, self.drawing_tool.polygon)
+                        self.triangulation_delaunay_tool.event_actions(event, self.drawing_tool.polygon)
+                        self.triangulation_random_mesh_tool.event_actions(event, self.drawing_tool.polygon, mesh_points=self.input_box.text)
+                        self.triangulation_structured_mesh_tool.event_actions(event, self.drawing_tool.polygon, mesh_points=self.input_box.text)
+                        #self.split_polygon_tool.event_actions(event, self.drawing_tool.polygon)
 
             self.__clear_screen()
             self.__draw_buttons()
@@ -136,7 +142,9 @@ class GeometryTool:
             self.drawing_tool.draw()
             self.triangulation_earclip_tool.draw()
             self.triangulation_delaunay_tool.draw()
-            self.split_polygon_tool.draw()
+            self.triangulation_random_mesh_tool.draw()
+            self.triangulation_structured_mesh_tool.draw()
+            #self.split_polygon_tool.draw()
 
             pygame.display.flip()
 
