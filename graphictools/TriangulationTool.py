@@ -1,6 +1,7 @@
 import pygame
 from algorithms.earclip import EarClipTriangulation
 from algorithms.delaunay import DelaunayTriangulation
+from algorithms.randompointstriangulation import RandomPointsTriangulation
 from libraries.triangle import compute_triangles_area
 
 GREEN = (107, 228, 0)
@@ -11,6 +12,7 @@ class TriangulationTool:
     LINE_WIDTH = 1
     TRIANGULATION_METHODS = {
         "delaunay": DelaunayTriangulation,
+        "random": RandomPointsTriangulation,
         "earclip": EarClipTriangulation
     }
 
@@ -21,6 +23,7 @@ class TriangulationTool:
         self.panel = button_panel
         self.text_position = text_position
 
+        self.method = method
         self.algorithm = self.TRIANGULATION_METHODS[method]()
 
         self.polygon_area = 0
@@ -29,9 +32,11 @@ class TriangulationTool:
 
         self.btn_triangulate_name = method
         self.panel.add_button(self.btn_triangulate_name)
+        self.mesh_points = 0
 
-    def event_actions(self, event, polygon):
+    def event_actions(self, event, polygon, mesh_points=0):
         mouse_pos = event.pos
+        self.mesh_points = mesh_points
         if self.panel.get(self.btn_triangulate_name).clicked(mouse_pos):
             self.__triangulate_button_clicked(polygon)
 
@@ -44,9 +49,13 @@ class TriangulationTool:
         self.polygon_area = 0
 
     def __triangulate_button_clicked(self, polygon):
-        if len(polygon) > 2 and not self.triangulation:
+        if len(polygon) > 2 and (self.method == "random" or not self.triangulation):
             fixed_polygon = [(x, -y) for x, y in polygon]
-            self.triangulation = self.algorithm.triangulate(fixed_polygon)
+            if self.method == "random":
+                self.triangulation = self.algorithm.triangulate(fixed_polygon, mesh_points=self.mesh_points)
+            else:
+                self.triangulation = self.algorithm.triangulate(fixed_polygon)
+
             self.polygon_area = compute_triangles_area(self.triangulation)
 
     def __draw_triangulation(self):
