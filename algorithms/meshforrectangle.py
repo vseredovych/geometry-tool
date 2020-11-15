@@ -57,8 +57,8 @@ class MeshForRectangle:
                 # add bottom triangle
                 triangles.append(Triangle(
                     Point(left, bottom),
-                    Point(left + dx, bottom + dy),
-                    Point(left + dx, bottom)
+                    Point(left + dx, bottom),
+                    Point(left + dx, bottom + dy)
                 ))
                 
                 bottom += dy
