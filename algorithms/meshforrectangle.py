@@ -44,22 +44,40 @@ class MeshForRectangle:
 
         
         left = rectangle_polygon[0].x
-        for _ in range(self.nx):
+        top_left = rectangle_polygon[1]
+        bottom_right = rectangle_polygon[3]
+        
+        for i in range(self.nx):
             bottom = rectangle_polygon[0].y
-            for __ in range(self.ny):
-                # add upper triangle
-                triangles.append(Triangle(
-                    Point(left, bottom),
-                    Point(left + dx, bottom + dy),
-                    Point(left, bottom + dy)
-                ))
-                
-                # add bottom triangle
-                triangles.append(Triangle(
-                    Point(left, bottom),
-                    Point(left + dx, bottom),
-                    Point(left + dx, bottom + dy)
-                ))
+            for j in range(self.ny):
+                if i == 0 and j == self.ny - 1 or i == self.nx - 1 and j == 0:
+                    # add bottom reversed triangle
+                    triangles.append(Triangle(
+                        Point(left, bottom),
+                        Point(left + dx, bottom),
+                        Point(left, bottom + dy)
+                    ))
+
+                    # add top reversed triangle
+                    triangles.append(Triangle(
+                        Point(left + dx, bottom),
+                        Point(left + dx, bottom + dy),
+                        Point(left, bottom + dy)
+                    ))
+                else:                    
+                    # add upper triangle
+                    triangles.append(Triangle(
+                        Point(left, bottom),
+                        Point(left + dx, bottom + dy),
+                        Point(left, bottom + dy)
+                    ))
+
+                    # add bottom triangle
+                    triangles.append(Triangle(
+                        Point(left, bottom),
+                        Point(left + dx, bottom),
+                        Point(left + dx, bottom + dy)
+                    ))
                 
                 bottom += dy
             
