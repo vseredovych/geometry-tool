@@ -2,14 +2,19 @@ from libraries.triangle import Triangle, Point
 import numpy as np
 
 class MeshForRectangle:
-    def triangulate(self, rectangle_polygon, mesh_num=0):
-        num = int(np.sqrt(int(mesh_num)))
-
+    def __init__(self, nx=10, ny=10):
         # number of splits by OX
-        self.nx = num
+        self.nx = nx
 
         # number of splits by OY
-        self.ny = num
+        self.ny = ny
+  
+    def triangulate(self, rectangle_polygon, mesh_num=None):
+        if(mesh_num != None):
+            num = int(np.sqrt(int(mesh_num)))
+
+            self.nx = num
+            self.ny = num
 
         rectangle_polygon = [Point(x[0], x[1])
                              for x in rectangle_polygon]
@@ -52,8 +57,8 @@ class MeshForRectangle:
                 # add bottom triangle
                 triangles.append(Triangle(
                     Point(left, bottom),
-                    Point(left + dx, bottom + dy),
-                    Point(left + dx, bottom)
+                    Point(left + dx, bottom),
+                    Point(left + dx, bottom + dy)
                 ))
                 
                 bottom += dy
