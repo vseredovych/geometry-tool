@@ -46,8 +46,8 @@ class GeometryTool:
 
         # self.split_polygon_tool = SplitPolygonConvexTool(self.board_screen, self.panel)
 
-        root = tk.Tk()
-        root.withdraw()
+        # root = tk.Tk()
+        # root.withdraw()
 
         pygame.init()
 
