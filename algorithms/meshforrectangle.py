@@ -50,7 +50,7 @@ class MeshForRectangle:
         for i in range(self.nx):
             bottom = rectangle_polygon[0].y
             for j in range(self.ny):
-                if i == 0 and j == self.ny - 1 or i == self.nx - 1 and j == 0:
+                if False: #i == 0 and j == self.ny - 1 or i == self.nx - 1 and j == 0:
                     # add bottom reversed triangle
                     triangles.append(Triangle(
                         Point(left, bottom),
